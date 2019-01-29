@@ -150,10 +150,14 @@ class MongoMultiValueTable(MongoTable):
 class MongoDBBackend(Backend):
     def __init__(self, db_name='cork', hostname='localhost', port=27017, initialize=False, username=None, password=None):
         """Initialize MongoDB Backend"""
-        connection = pymongo.MongoClient(host=hostname, port=port)
-        db = connection[db_name]
+
         if username and password:
-            db.authenticate(username, password)
+            connection = pymongo.MongoClient(host=hostname, port=port, username=username, password=password)
+        else:
+            connection = pymongo.MongoClient(host=hostname, port=port)
+
+        db = connection[db_name]
+
         self.users = MongoMultiValueTable('users', 'login', db.users)
         self.pending_registrations = MongoMultiValueTable(
             'pending_registrations',
