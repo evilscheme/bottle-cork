@@ -80,7 +80,7 @@ class BaseCork(object):
     def __init__(self, directory=None, backend=None, email_sender=None,
                  initialize=False, session_domain=None, smtp_server=None,
                  smtp_url='localhost', session_key_name=None,
-                 preferred_hashing_algorithm=None, pbkdf2_iterations=None):
+                 preferred_hashing_algorithm="PBKDF2sha1", pbkdf2_iterations=100000):
         """Auth/Authorization/Accounting class
 
         :param directory: configuration directory
